@@ -5,10 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-stories = [
-  { name:'Mo', text: 'Hello World' },
-  { name:'Fabien', text: 'Hello Python' },
-  { name:'Brian', text: 'Hello JS' },
-  { name:'Forrest', text: 'Hello Rails' }
-]
-Story.create(stories)
+require 'faker'
+
+Story.destroy_all
+
+5.times {
+  s = Story.create(name: Faker::Games::Witcher.character, text: Faker::Games::Witcher.location)
+  3.times {
+    c = Comment.create(name: Faker::Games::Witcher.witcher, content: Faker::Games::Witcher.quote, story: s)
+  }
+}
